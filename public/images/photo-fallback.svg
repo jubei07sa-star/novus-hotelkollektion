@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Illustration einer modernen Berghotellandschaft">
+<defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#a7a798"/><stop offset="1" stop-color="#e8d6b3"/></linearGradient><linearGradient id="hill" x2="0" y2="1"><stop stop-color="#637f74"/><stop offset="1" stop-color="#29483a"/></linearGradient><linearGradient id="building" x2="0" y2="1"><stop stop-color="#e5d6bc"/><stop offset="1" stop-color="#b7ac96"/></linearGradient></defs>
+<rect width="1600" height="900" fill="url(#sky)"/><circle cx="1180" cy="190" r="95" fill="#f8e6bc" opacity=".6"/>
+<path d="M0 550 240 285 460 535 700 170 1020 535 1240 295 1600 580V900H0Z" fill="#8a9b8d"/>
+<path d="M0 615 330 400 560 620 830 355 1200 655 1420 445 1600 600V900H0Z" fill="url(#hill)"/>
+<path d="M0 735 330 640 750 735 1080 615 1600 735V900H0Z" fill="#344e41"/>
+<rect x="520" y="455" width="560" height="260" fill="url(#building)"/><path d="M480 455 800 310 1120 455Z" fill="#263b37"/>
+<rect x="770" y="583" width="62" height="132" fill="#4a544a"/>
+<g fill="#3b5147"><rect x="575" y="510" width="68" height="78"/><rect x="680" y="510" width="68" height="78"/><rect x="860" y="510" width="68" height="78"/><rect x="960" y="510" width="68" height="78"/></g>
+<path d="M0 735Q600 665 1600 775V900H0Z" fill="#263d32" opacity=".6"/>
+<text x="50%" y="845" fill="#e9ecdf" text-anchor="middle" font-family="Georgia,serif" font-size="27" letter-spacing="8">HOTELKOLLEKTION · DEMO-BILDMOTIV</text>
+</svg>

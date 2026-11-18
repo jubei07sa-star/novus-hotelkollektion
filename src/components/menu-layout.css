@@ -1,0 +1,98 @@
+/* Guest menu layout, scoped to Landhotel Tanne. */
+.tanne-menu-page .page-heading{padding-top:55px;padding-bottom:0}
+.tanne-menu-page .page-heading h1{font-size:clamp(38px,4.3vw,58px);margin:20px 0 15px}
+.tanne-menu-page .section-pad-top{padding-top:28px;padding-bottom:65px}
+.menu-ui.menu-ui--tanne{display:block}
+.menu-ui--tanne>*{min-width:0}
+.menu-ui--tanne .menu-section-nav{display:flex;flex-wrap:wrap;gap:8px;border-block:1px solid #dedbce;padding:17px 0;margin-bottom:28px}
+.menu-ui--tanne .menu-section-nav a{font-size:12px;padding:11px 15px;border-radius:30px;background:#f1eee6;color:#274a3b;transition:background .15s}
+.menu-ui--tanne .menu-section-nav a:hover{background:#e1e7dc}
+.menu-ui--tanne :is(a,button,summary):focus-visible{outline:2px solid #876831;outline-offset:4px}
+.menu-ui--tanne :is(#tagesmenue,.menu-section,#restaurantzeiten,#festmenues){scroll-margin-top:125px}
+.menu-ui--tanne .daily-special{position:static;padding:30px 32px;border:1px solid #dce0d4;border-radius:10px}
+.menu-ui--tanne .daily-plan{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:40px;align-items:center}
+.menu-ui--tanne .daily-heading h2{font-size:34px;margin:12px 0}
+.menu-ui--tanne .daily-heading p{font-size:13px;line-height:1.7;margin:0}
+.menu-ui--tanne .daily-heading>svg{flex-shrink:0}
+.menu-ui--tanne .daily-selected-date{font-size:13px;font-weight:600;margin:0 0 13px;color:#274a3b}
+.menu-ui--tanne .day-picker{margin:0;gap:7px}
+.menu-ui--tanne .day-pill{min-height:63px;border-radius:5px}
+.menu-ui--tanne .day-pill span{font-size:10px}
+.menu-ui--tanne .day-pill strong{font-size:12px}
+.menu-ui--tanne .daily-dishes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:35px;margin-top:23px;border-top:1px solid #cdd4c6}
+.menu-ui--tanne .daily-dishes--single{grid-template-columns:1fr}
+.menu-ui--tanne .daily-dishes .lux-dish{padding:22px 0 10px;border:0}
+.menu-ui--tanne .daily-dishes h3{font-size:25px}
+.menu-ui--tanne .daily-dishes .lux-dish-top>strong{font-size:24px}
+.menu-ui--tanne .small-notice{display:flex;gap:9px;font-size:11px;line-height:1.6;margin:12px 0 0}
+.menu-ui--tanne .small-notice svg{flex-shrink:0;margin-top:2px}
+.menu-ui--tanne .menu-loading{grid-column:1/-1;min-height:130px;padding-top:25px;font-size:14px}
+.full-menu-heading p{font-size:13px;color:#778078;margin-bottom:34px}
+.menu-ui--tanne .full-menu{margin-top:52px}
+.menu-ui--tanne .full-menu-heading{display:flex;justify-content:space-between;align-items:center;gap:25px;margin-bottom:24px}
+.menu-ui--tanne .full-menu-heading h2{font-size:42px;margin:13px 0}
+.menu-ui--tanne .full-menu-heading p{font-size:13px;line-height:1.7;margin:0;color:#677267}
+.menu-ui--tanne .menu-pdf-download{flex-shrink:0;margin:0}
+.menu-ui--tanne .menu-section{border:0;padding:15px 0 10px}
+.menu-ui--tanne .menu-category-heading{display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid #c9bc9f;padding-bottom:14px}
+.menu-ui--tanne .menu-category-heading h3{font:30px/1.2 Georgia,serif;margin:0;color:#244333}
+.menu-ui--tanne .menu-category-heading>span{font-size:11px;letter-spacing:2px;color:#927951}
+.menu-ui--tanne .menu-section-dishes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:55px;align-items:start}
+.menu-ui--tanne .menu-section-dishes .lux-dish{padding:24px 0 16px;min-width:0;border-color:#e6dfd0}
+.menu-ui--tanne .lux-dish-top>div{min-width:0}
+.menu-ui--tanne .lux-dish-top h4{font:24px/1.3 Georgia,serif;margin:0 0 10px;overflow-wrap:break-word;color:#244333}
+.menu-ui--tanne .menu-section-dishes .lux-dish-top>strong{font-size:23px;padding-top:0;line-height:1.3}
+.menu-ui--tanne .lux-dish>p:empty,.menu-ui--tanne .lux-tags:empty{display:none}
+.menu-ui--tanne .lux-details{margin-top:8px}
+.menu-ui--tanne .lux-details summary{min-height:42px;align-content:center;font-size:12px;line-height:1.6}
+.menu-ui--tanne .lux-details[open]{background:#f4f1e9;padding:0 12px 12px;border-radius:5px}
+.menu-ui--tanne .lux-details dl{grid-template-columns:120px minmax(0,1fr)}
+.menu-ui--tanne .tanne-dining{margin-top:50px;width:100%}
+.menu-ui--tanne .tanne-service-grid,.menu-ui--tanne .tanne-season-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.menu-ui--tanne .tanne-dining article{min-width:0}
+.menu-ui--tanne .tanne-contact a{overflow-wrap:anywhere}
+.menu-ui--tanne .tanne-contact svg{flex-shrink:0}
+.menu-ui--tanne .tanne-dining h2{font-size:32px}
+.menu-ui--tanne .tanne-brunch .button{white-space:normal;line-height:1.5}
+.menu-ui--tanne .tanne-season-grid article{padding:36px}
+.menu-ui--tanne .tanne-season h3{font-size:30px}
+.menu-ui--tanne .tanne-season-grid p{font-size:16px}
+@media(max-width:1100px){
+ .menu-ui--tanne .daily-plan{grid-template-columns:1fr;gap:22px}
+ .menu-ui--tanne .menu-section-dishes{column-gap:30px}
+ .menu-ui--tanne .lux-dish-top h4{font-size:22px}
+ .menu-ui--tanne .menu-section-dishes .lux-dish-top>strong{font-size:21px}
+ .menu-ui--tanne .lux-details dl{display:block}
+ .menu-ui--tanne .lux-details dd{margin-bottom:10px}
+ .menu-ui--tanne .tanne-hours,.menu-ui--tanne .tanne-brunch{padding:28px}
+ .menu-ui--tanne .tanne-dining h2{font-size:29px}
+}
+@media(max-width:850px){
+ .menu-ui--tanne .menu-section-dishes{grid-template-columns:1fr}
+ .menu-ui--tanne .daily-special{padding:26px}
+ .menu-ui--tanne .daily-dishes{gap:25px}
+ .menu-ui--tanne .daily-dishes h3{font-size:23px}
+ .menu-ui--tanne .daily-dishes .lux-dish-top>strong{font-size:21px}
+ .menu-ui--tanne .tanne-service-grid{grid-template-columns:1fr}
+ .menu-ui--tanne .tanne-season-grid{gap:18px}
+ .menu-ui--tanne .tanne-season-grid article{padding:30px 23px}
+ .menu-ui--tanne .tanne-season h3{font-size:27px}
+ .menu-ui--tanne .full-menu-heading{align-items:flex-start;flex-direction:column;gap:18px}
+}
+@media(max-width:600px){
+ .tanne-menu-page .page-heading{padding-top:35px}
+ .tanne-menu-page .page-heading h1{font-size:38px}
+ .menu-ui--tanne .menu-section-nav{gap:6px}
+ .menu-ui--tanne .menu-section-nav a{font-size:11px;padding:11px 12px}
+ .menu-ui--tanne .daily-special{padding:23px 17px}
+ .menu-ui--tanne .daily-heading h2{font-size:30px}
+ .menu-ui--tanne .daily-dishes{grid-template-columns:1fr;gap:0}
+ .menu-ui--tanne .day-picker{gap:4px}
+ .menu-ui--tanne .day-pill strong{font-size:10px}
+ .menu-ui--tanne .day-pill span{font-size:9px}
+ .menu-ui--tanne .full-menu-heading h2{font-size:35px}
+ .menu-ui--tanne .menu-category-heading h3{font-size:27px}
+ .menu-ui--tanne .tanne-season-grid{grid-template-columns:1fr}
+ .menu-ui--tanne .menu-pdf-download{white-space:normal}
+ .menu-ui--tanne :is(#tagesmenue,.menu-section,#restaurantzeiten,#festmenues){scroll-margin-top:90px}
+}

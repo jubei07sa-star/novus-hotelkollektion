@@ -1,0 +1,107 @@
+.hotel-shell main.hc-page{color:#302c24;background:#f6f1e7}
+.hc-page *{min-width:0}
+.hotel-shell .hc-page .hc-intro{display:grid;grid-template-columns:minmax(0,1fr) 150px;align-items:end;gap:60px;padding-top:65px;padding-bottom:38px}
+.hotel-shell .hc-page .hc-intro h1{font:500 clamp(38px,4.5vw,64px)/1.06 HotelJost,Arial,sans-serif;letter-spacing:-.035em;margin:20px 0 24px;max-width:900px;text-transform:uppercase}
+.hotel-shell .hc-page .hc-intro p{font-size:16px;line-height:1.8;max-width:700px;color:#7c705d;margin:0}
+.hc-intro-link{font-size:12px;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid #ad9974;padding:18px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;color:#7c6540;line-height:1.7}
+.hc-intro-link svg{flex-shrink:0}
+.hc-quick{display:flex;flex-wrap:wrap;gap:0;border-block:1px solid #ddd0b9;padding:15px 0;margin-bottom:45px}
+.hc-quick a{flex:1;display:flex;align-items:center;gap:10px;padding:12px 18px;font-size:12px;color:#6c5c41;min-height:48px;border-right:1px solid #e3d7c1}
+.hc-quick a:first-child{padding-left:0}.hc-quick a:last-child{border-right:0}.hc-quick svg{flex-shrink:0}.hc-quick a>span{overflow-wrap:anywhere}.hc-quick a>svg:last-child{margin-left:auto}
+.hc-quick a:hover{color:#30281c;background:#efe6d5}
+.hc-layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.85fr);gap:34px;align-items:start;padding-bottom:80px}
+.hc-form-card{background:#fffcf5;border:1px solid #ded2bc;border-radius:9px;padding:36px;scroll-margin-top:115px;box-shadow:0 7px 25px #4b351204}
+.hotel-shell .hc-page .hc-form-heading h2{font:500 38px/1.08 HotelJost,Arial,sans-serif;text-transform:uppercase;letter-spacing:-.03em;margin:16px 0 14px}
+.hotel-shell .hc-page .hc-form-heading p{color:#88765a;font-size:14px;margin-bottom:28px;line-height:1.75}
+.hc-form-card form,.hc-form-card fieldset{min-width:0}
+.hc-form-card fieldset{padding:0;margin:0;border:0}
+.hc-form-card label,.hc-form-card legend{font:500 13px/1.5 HotelJost,Arial,sans-serif;color:#635237}
+.hc-form-card label{display:block}
+.hc-form-card label>span:not(.hc-field-error){color:#97794e}
+.hc-form-card label>small,.hc-form-card legend>small{font-size:11px;font-weight:400;color:#9a896c;margin-left:7px}
+.hc-topics legend{padding:0 0 12px}
+.hc-topics>div{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:28px}
+.hc-topics button{border:1px solid #d8cbb0;background:#f8f1e3;color:#826a43;min-height:52px;display:flex;align-items:center;gap:10px;padding:12px 15px;border-radius:5px;font:500 13px HotelJost,Arial,sans-serif;text-align:left;cursor:pointer}
+.hc-topics button>svg{flex-shrink:0}
+.hc-topics button[aria-pressed=true]{background:var(--forest,#302e25);border-color:var(--forest,#302e25);color:#fff8e7}
+.hc-topics button:hover:not([aria-pressed=true]){background:#eee1c9}
+.hc-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:19px 16px}
+.hc-phone{grid-column:1/-1}
+.hc-form-card :is(input,textarea){display:block;width:100%;max-width:100%;min-height:50px;border:1px solid #d6c8ad;border-radius:5px;background:#fffefa;color:#352c1f;font:15px/1.5 HotelJost,Arial,sans-serif;padding:12px 14px;margin-top:7px;box-shadow:none}
+.hc-form-card :is(input,textarea)::placeholder{color:#a19279;opacity:1}
+.hc-form-card textarea{resize:vertical;min-height:145px}
+.hc-form-card :is(input,textarea)[aria-invalid=true]{border-color:#a65032;background:#fff9f1}
+.hc-form-card :focus-visible,.hc-page .hc-quick a:focus-visible{outline:3px solid #ac8d56;outline-offset:3px}
+.hc-form-card :is(input,textarea):focus-visible{outline-width:2px;outline-offset:1px}
+.hc-form-card .hc-visit{padding:20px;background:#f5eedf;border:1px solid #e0d2b6;border-radius:6px;margin:27px 0}
+.hc-visit legend{padding:0 7px}
+.hotel-shell .hc-page .hc-visit p{font-size:11px;color:#927d58;line-height:1.7;margin:16px 0 0}
+.hc-message{margin-top:25px}
+.hc-form-card .hc-counter{display:block;text-align:right;font-size:10px;color:#9b8765;margin:6px 0 0}
+.hc-privacy{display:flex;align-items:start;gap:11px;margin:20px 0 24px;color:#8f7a55}
+.hc-privacy>svg{flex-shrink:0;margin-top:3px}
+.hotel-shell .hc-page .hc-privacy p{font-size:11px;line-height:1.8;margin:0;color:#8e7b5a}
+.hc-privacy a{color:#75572b;text-decoration:underline;text-underline-offset:3px}
+.hc-form-bottom{display:flex;align-items:center;gap:22px;justify-content:space-between}
+.hc-form-bottom>span{font-size:10px;line-height:1.8;color:#9b855e;text-align:right}
+.hc-submit{display:inline-flex;align-items:center;justify-content:center;gap:16px;background:var(--forest,#302e25);color:#fff7e7;border:1px solid var(--forest,#302e25);border-radius:5px;padding:16px 24px;min-height:54px;font:500 12px HotelJost,Arial,sans-serif;text-transform:uppercase;letter-spacing:.08em;cursor:pointer}
+.hc-submit:hover{filter:brightness(1.12)}
+.hc-form-card .hc-field-error{display:block;color:#a04e30;font-size:11px;font-weight:400;line-height:1.6;margin-top:6px}
+.hotel-shell .hc-page .hc-form-error{background:#f7e6d9;color:#93482c;border:1px solid #e8c6b0;padding:12px 15px;border-radius:5px;font-size:13px;line-height:1.7}
+.hc-review-label{display:flex;align-items:center;gap:10px;color:#837145;font-size:10px;letter-spacing:.12em}
+.hotel-shell .hc-page .hc-review h3{font:500 30px HotelJost,Arial,sans-serif;margin:15px 0}
+.hotel-shell .hc-page .hc-review .hc-unsent{font-size:14px;color:#8a6738;line-height:1.75;background:#f3e8d2;padding:15px;border-radius:5px}
+.hc-review pre{font:14px/1.8 HotelJost,Arial,sans-serif;white-space:pre-wrap;overflow-wrap:anywhere;margin:24px 0;padding:20px;background:#f7f1e4;border:1px solid #e1d3b8;border-radius:5px;color:#69583c}
+.hc-review-actions{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.hc-email-action,.hc-back{display:inline-flex;align-items:center;gap:8px;color:#80643b;font:12px HotelJost,Arial,sans-serif;min-height:46px;padding:10px 0}
+.hc-back{border:0;background:none;cursor:pointer;text-decoration:underline;text-underline-offset:4px;margin-top:15px}
+.hotel-shell .hc-page .hc-review-note{font-size:12px;color:#897553;line-height:1.75;margin-top:18px}
+.hotel-shell .hc-page .hc-copy-status{font-size:12px;line-height:1.7;background:#e8ecdf;color:#53643f;padding:12px 15px;border-radius:5px}
+.hc-sidebar{display:grid;gap:25px}
+.hc-profile{border:1px solid #ded0b6;background:#f0e7d5;border-radius:8px;overflow:hidden}
+.hc-profile-image{height:270px}
+.hc-profile-content{padding:28px}
+.hotel-shell .hc-page .hc-profile h2{font-size:25px;line-height:1.2;margin:12px 0 18px;text-transform:uppercase}
+.hc-profile address{font-style:normal;line-height:1.9;font-size:14px;color:#7e6a49}
+.hc-route-link{display:flex;align-items:center;gap:8px;color:#765b2d;font-size:12px;border-bottom:1px solid #cbbb9d;padding:16px 0;margin-bottom:18px;min-height:48px}
+.hc-direct{display:grid;gap:7px}
+.hc-direct a{display:flex;align-items:center;gap:10px;font-size:13px;color:#6b5533;min-height:40px;overflow-wrap:anywhere}
+.hc-direct a>svg{flex-shrink:0}
+.hotel-shell .hc-page .hc-upcoming{font-size:12px;line-height:1.7;color:#8a7452;margin:20px 0 0;padding-top:16px;border-top:1px solid #d5c5a7}
+.hc-hours{background:var(--forest,#302e25);border-radius:8px;padding:28px;color:#f7efd9}
+.hc-hours>svg{display:block;color:#d6bd8e;margin-bottom:18px}
+.hotel-shell .hc-page .hc-hours .eyebrow{color:#dac394}
+.hotel-shell .hc-page .hc-hours h2{font-size:29px;color:#fff6e3;line-height:1.1;margin:12px 0 20px}
+.hc-hours dl{margin:0 0 22px}
+.hc-hours dl>div{padding:13px 0;border-bottom:1px solid #f4e9cd29}
+.hc-hours dt{font-size:12px;color:#d4c4a5;font-weight:400}
+.hc-hours dd{font-size:15px;line-height:1.7;margin:5px 0 0;color:#fbf1db}
+.hotel-shell .hc-page .hc-hours .text-link{color:#e2cd9f;font-size:11px;display:inline-flex;align-items:center;gap:8px}
+.hc-arrival{background:#eae0cb;padding-block:75px;scroll-margin-top:110px}
+.hc-arrival-inner{display:grid;grid-template-columns:1.2fr 1fr;gap:100px;align-items:center}
+.hotel-shell .hc-page .hc-arrival h2{font-size:clamp(32px,3.5vw,48px);margin:16px 0 22px;line-height:1.1}
+.hotel-shell .hc-page .hc-arrival p{font-size:15px;line-height:1.8;color:#857051;max-width:580px}
+.hc-arrival ul{padding:0;list-style:none;display:grid;gap:12px;margin-top:25px;color:#7a6340;font-size:13px;line-height:1.7}
+.hc-arrival li{display:flex;gap:12px;align-items:start}.hc-arrival li>svg{flex-shrink:0;margin-top:2px}
+.hc-address-card{background:#f9f2e2;border:1px solid #cdb994;border-radius:8px;padding:35px}
+.hc-address-card>svg{display:block;color:#ad8a4d;margin-bottom:24px}
+.hc-address-card>span{font-size:9px;letter-spacing:.16em;color:#97805a}
+.hotel-shell .hc-page .hc-address-card h3{font-size:30px;margin:12px 0 16px;line-height:1.2}
+.hc-address-card address{font-style:normal;color:#917955;font-size:14px;line-height:1.9}
+.hc-address-card>a{display:flex;align-items:center;justify-content:space-between;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#76552b;padding:18px 0;border-block:1px solid #d7c4a1;margin-top:24px}
+.hc-address-card small{display:block;font-size:10px;color:#9d865f;margin-top:14px;line-height:1.7}
+.hc-help{display:grid;grid-template-columns:.8fr 1.2fr;gap:75px;padding-top:80px;padding-bottom:90px}
+.hotel-shell .hc-page .hc-help h2{font-size:36px;margin:18px 0;line-height:1.1}
+.hc-faq details{border-bottom:1px solid #daccb1}
+.hc-faq summary{font-size:16px;padding:23px 5px;cursor:pointer;color:#655034;line-height:1.6}
+.hc-faq summary:focus-visible{outline:2px solid #aa8b54;outline-offset:2px}
+.hotel-shell .hc-page .hc-faq p{font-size:14px;line-height:1.8;color:#8a7552;margin:0 0 24px;padding-inline:5px}
+.hc-faq a{text-decoration:underline;text-underline-offset:3px;color:#71522c}
+@media(max-width:1100px){.hc-layout{gap:24px;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr)}.hc-form-card{padding:28px}.hc-profile-content,.hc-hours{padding:24px}.hc-profile-image{height:230px}.hc-arrival-inner{gap:55px}.hc-quick a{flex:1 1 40%}.hc-quick a:nth-child(3){padding-left:0}.hc-quick a:nth-child(2){border-right:0}.hc-help{gap:45px}}
+@media(max-width:980px){.hotel-shell .hc-page .hc-intro{grid-template-columns:minmax(0,1fr);gap:24px;padding-top:45px}.hc-intro-link{max-width:260px;min-height:48px;padding-block:12px}.hc-intro-link br{display:none}.hc-layout{grid-template-columns:minmax(0,1fr)}.hc-sidebar{display:grid;grid-template-columns:1fr 1fr;align-items:start;gap:24px}.hc-form-card{padding:36px}.hc-hours{height:100%}.hc-arrival-inner{gap:40px}.hc-help{grid-template-columns:1fr;gap:18px}.hc-quick{margin-bottom:30px}}
+@media(max-width:640px){.hotel-shell .hc-page .hc-intro{padding-top:35px;padding-bottom:26px;gap:14px}.hotel-shell .hc-page .hc-intro h1{font-size:38px;margin:16px 0 20px}.hotel-shell .hc-page .hc-intro p{font-size:14px}.hc-intro-link{font-size:11px}.hc-quick{padding-block:9px;margin-bottom:25px}.hc-quick a{flex:1 1 100%;border-right:0;border-bottom:1px solid #e3d7c1;padding:12px 0;font-size:12px;min-height:48px}.hc-quick a:last-child{border-bottom:0}.hc-layout{gap:24px;padding-bottom:45px}.hc-form-card{padding:25px 20px;border-radius:7px;scroll-margin-top:85px}.hotel-shell .hc-page .hc-form-heading h2{font-size:32px}.hotel-shell .hc-page .hc-form-heading p{font-size:13px;margin-bottom:23px}.hc-form-heading .eyebrow{font-size:9px!important;letter-spacing:.12em!important}.hc-fields{gap:18px 12px}.hc-form-card :is(input,textarea){font-size:16px;padding:12px;min-height:50px}.hc-form-card label,.hc-form-card legend{font-size:13px}.hc-topics>div{gap:7px;margin-bottom:23px}.hc-topics button{font-size:12px;padding:13px 10px;gap:8px;min-height:54px}.hc-form-card .hc-visit{padding:17px 13px;margin-block:23px}.hc-form-bottom{align-items:start;flex-direction:column;gap:12px}.hc-form-bottom .hc-submit{width:100%}.hc-form-bottom>span{text-align:left}.hc-submit{font-size:12px;min-height:54px}.hc-sidebar{grid-template-columns:minmax(0,1fr)}.hc-profile-image{height:240px}.hc-profile-content,.hc-hours{padding:25px}.hc-arrival{padding-block:48px;scroll-margin-top:85px}.hc-arrival-inner{grid-template-columns:minmax(0,1fr);gap:25px}.hotel-shell .hc-page .hc-arrival p{font-size:14px}.hc-arrival ul{font-size:12px}.hc-address-card{padding:26px}.hotel-shell .hc-page .hc-address-card h3{font-size:28px}.hc-help{padding-top:48px;padding-bottom:55px}.hotel-shell .hc-page .hc-help h2{font-size:32px}.hc-faq summary{font-size:15px;padding:20px 2px}.hotel-shell .hc-page .hc-faq p{font-size:13px}.hc-review-actions{flex-direction:column;align-items:stretch}.hc-review-actions .hc-submit{width:100%}.hc-email-action{justify-content:center}.hc-review pre{font-size:13px;padding:15px}.hotel-shell .hc-page .hc-review .hc-unsent{font-size:13px}}
+@media(max-width:480px){.hc-fields{grid-template-columns:minmax(0,1fr)}.hc-topics button{flex-direction:column;align-items:start;gap:9px}.hc-phone{grid-column:auto}.hotel-shell .hc-page .hc-intro h1{font-size:35px}}
+@media(prefers-reduced-motion:reduce){.hc-page *{scroll-behavior:auto!important;transition:none!important}}
+.hc-form-card label>small,.hc-form-card legend>small,.hc-form-card .hc-counter,.hc-form-bottom>span,.hc-address-card small{color:#786548}
+.hotel-shell .hc-page .hc-privacy p,.hotel-shell .hc-page .hc-visit p{color:#786548}
+@media(max-width:680px){body:has(.hc-form-card:focus-within) :is(.hotel-action-dock,.hotel-whatsapp){visibility:hidden;pointer-events:none}}

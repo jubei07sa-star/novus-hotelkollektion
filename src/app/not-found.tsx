@@ -1,0 +1,2 @@
+import Link from "next/link";
+export default function NotFound(){return <main id="main-content" tabIndex={-1} className="error-page"><span className="eyebrow eyebrow--dark">404 · SEITE NICHT GEFUNDEN</span><h1>Hier sind Sie nicht ganz richtig.</h1><p>Diese Seite ist nicht verfügbar. Über die Startseite finden Sie zurück zu Ihrer Auszeit.</p><Link className="button button-solid" href="/">Zur Startseite</Link></main>}
