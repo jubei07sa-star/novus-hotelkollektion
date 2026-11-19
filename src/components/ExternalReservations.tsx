@@ -1,0 +1,9 @@
+import type { Hotel } from "@/lib/hotels";
+import { reservationTarget } from "@/lib/reservations";
+import { DemoImage } from "./DemoImage";
+import { hotelImageAlts } from "@/lib/hotel-seo";
+import { ArrowUpRight, BedDouble, UtensilsCrossed } from "lucide-react";
+import "./hotel-contact.css";
+export function ExternalReservations({hotel}:{hotel:Hotel}){
+  return <main id="main-content" tabIndex={-1} className="hc-page"><section className="container hc-intro"><div><span className="eyebrow eyebrow--dark">RESERVIEREN · {hotel.name}</span><h1>Wir freuen uns auf Ihren Besuch.</h1><p>Ein Zimmer für Ihre Auszeit oder ein Tisch für einen genussvollen Abend: Hier finden Sie den passenden Kontakt.</p></div></section><section className="container hc-layout"><div className="hc-form-card">{(["room","table"] as const).map(mode=>{const target=reservationTarget(hotel.slug,mode);const Icon=mode==="room"?BedDouble:UtensilsCrossed;return <article key={mode} style={{padding:"24px 0",borderBottom:"1px solid #e1dbd0"}}><Icon size={26}/><h2>{mode==="room"?"Übernachten":"Restaurant"}</h2><p>{target.note}</p><a className="button button-solid" href={target.href} data-hotel-event={target.event} target={target.external?"_blank":undefined} rel={target.external?"noopener noreferrer":undefined}>{target.label}<ArrowUpRight size={18}/></a></article>;})}<p className="small-notice">Reservierungen werden über die bestehenden Buchungspartner oder im persönlichen Kontakt abgewickelt. Auf dieser Website werden keine Buchungen oder Zahlungen durchgeführt.</p></div><aside className="hc-sidebar"><article className="hc-profile"><div className="image-wrap hc-profile-image"><DemoImage src={hotel.roomImage} alt={hotelImageAlts[hotel.slug].room}/></div><div className="hc-profile-content"><h2>{hotel.name}</h2><p>{hotel.subtitle}</p><a href="/kontakt/" className="text-link">Kontakt & Anreise <ArrowUpRight size={16}/></a></div></article></aside></section></main>;
+}

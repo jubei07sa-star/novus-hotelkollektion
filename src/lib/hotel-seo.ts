@@ -22,7 +22,7 @@ const copy:Record<string,Partial<Record<HotelSection,Entry>>>={
     home:["Landhotel Tanne in Fischingen | Hotel & Restaurant bei Basel","Ihre Auszeit im Markgräflerland: Zimmer, badisch-türkische Küche, Gartenwirtschaft und Sonntagsbrunch im Landhotel Tanne in Fischingen bei Basel."],
     zimmer:["Zimmer in Fischingen bei Basel | Landhotel Tanne","Gut schlafen in der Tanne: Zimmer mit eigenem Bad, kostenfreie Parkplätze und Frühstück im Haus. Entdecken Sie Ihren Aufenthalt in Fischingen."],
     restaurant:["Restaurant in Fischingen | Tanne & Gartenwirtschaft","Zu Tisch in der Tanne: badische Spezialitäten, türkische Einflüsse und saisonale Ideen. Restaurant, Kaminzimmer und Gartenwirtschaft in Fischingen."],
-    speisekarte:["Speisekarte & Tagesmenü | Restaurant Tanne Fischingen","Entdecken Sie die Tanne-Karte, saisonale Festmenüs und die Tagesmenü. Mit Zutaten, Allergenhinweisen und Informationen zum Restaurantbesuch."],
+    speisekarte:["Speisekarte & Tagesmenü | Restaurant Tanne Fischingen","Entdecken Sie die Tanne-Karte, saisonale Festmenüs und das Tagesmenü. Mit Zutaten, Allergenhinweisen und Informationen zum Restaurantbesuch."],
     hochzeiten:["Hochzeit & Familienfeier in Fischingen | Landhotel Tanne","Feiern Sie in der Tanne: Gartenempfang, Terrasse und festliches Essen im Markgräflerland. Räume, Menü und Übernachtungen persönlich mit uns planen."],
     kontakt:["Kontakt & Anreise nach Fischingen | Landhotel Tanne","So erreichen Sie das Landhotel Tanne: Dorfstraße 31 in Fischingen. Telefon, E-Mail, WhatsApp und Routenplanung für Ihren Besuch im Markgräflerland."],
     buchen:["Zimmer oder Tisch reservieren | Landhotel Tanne","Planen Sie Ihre Zeit in der Tanne: Zimmerverfügbarkeit im Hotelportal prüfen oder einen Tisch reservieren. Bei Fragen sind wir persönlich für Sie da."],
@@ -75,7 +75,7 @@ export function getHotelSeo(hotel:Hotel,section:HotelSection="home"){
   const kroneExtra=hotel.slug==="krone-wiechs"?(section==="wellness"?kronePhotos[11]:section==="seminare"?kronePhotos[15]:undefined):undefined;
   const image=kroneExtra?.image||(section==="fruehstueck-brunch"?"/images/tanne/brunch.webp":hotel[`${imageType}Image`]);
   const alt=kroneExtra?.alt||(section==="fruehstueck-brunch"?"Buffet zum Sonntagsbrunch im Landhotel Tanne":hotelImageAlts[hotel.slug][imageType]);
-  return {title,description,image,alt,url:`${hotelHomeUrl(hotel.slug)}/${section==="home"?"":section}`};
+  return {title,description,image,alt,url:`${hotelHomeUrl(hotel.slug)}/${section==="home"?"":section+"/"}`};
 }
 export function hotelMetadata(slug:string,section:HotelSection="home"):Metadata{
   const hotel=getHotel(slug);if(!hotel)return {title:"Hotel nicht gefunden"};

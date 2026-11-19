@@ -1,11 +1,10 @@
 import type { MetadataRoute } from "next";
-import { headers } from "next/headers";
+import { currentHotel } from "@/lib/current-hotel";
 import { getHotelByHostname } from "@/lib/hotels";
 
 /** Each local hotel domain exposes its own brand name and theme. */
 export default async function manifest(): Promise<MetadataRoute.Manifest> {
-  const h = await headers();
-  const hotel = getHotelByHostname(h.get("host") || "");
+  const hotel = await currentHotel();
   return {
     name: hotel ? `${hotel.name}` : "Hotelkollektion",
     short_name: hotel ? hotel.name.slice(0, 18) : "Hotelkollektion",

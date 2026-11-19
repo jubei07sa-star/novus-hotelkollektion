@@ -1,5 +1,7 @@
 "use client";
+import { apiFetch, apiQuery, phpBackend } from "@/lib/api";
 import Link from "next/link";
+import { AdminSession } from "@/components/AdminSession";
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowUpRight, Check, ChevronLeft, ChevronRight, Eye, LoaderCircle, Plus, Save, Trash2, UtensilsCrossed, FileUp, PenLine, Building2, Undo2, Copy, CalendarDays } from "lucide-react";
 import { hotels, hotelHomeUrl } from "@/lib/hotels";
@@ -20,7 +22,7 @@ function shift(day:string,n:number){const d=new Date(day+"T12:00:00Z");d.setUTCD
 function label(day:string,options:Intl.DateTimeFormatOptions){return new Intl.DateTimeFormat("de-DE",{...options,timeZone:"Europe/Berlin"}).format(new Date(day+"T12:00:00Z"));}
 type Draft=MenuDraft;
 const sharedPreview=process.env.NEXT_PUBLIC_SHARED_PREVIEW==="true";
-export default function AdminPage(){
+function MenuManager(){
   const [slug,setSlug]=useState(hotels[0].slug),[day,setDay]=useState(today);
   const [drafts,setDrafts]=useState<Record<string,Draft>>({});
   const [busy,setBusy]=useState(false),[loading,setLoading]=useState(true);
@@ -43,7 +45,7 @@ export default function AdminPage(){
     const controller=new AbortController();
     const missing=Array.from({length:7},(_,i)=>shift(monday,i)).filter(date=>!cache.current[slug+":"+date]);
     void Promise.all(missing.map(async date=>{
-      try{const response=await fetch("/api/demo-menu?hotel="+encodeURIComponent(slug)+"&day="+date,{cache:"no-store",signal:controller.signal});if(!response.ok)return;const entry=draftFromMenu(await response.json());if(!controller.signal.aborted)setDrafts(previous=>previous[slug+":"+date]?previous:{...previous,[slug+":"+date]:entry});}catch{}
+      try{const response=await fetch(apiQuery("demo-menu", "hotel="+encodeURIComponent(slug)+"&day="+date),{cache:"no-store",signal:controller.signal});if(!response.ok)return;const entry=draftFromMenu(await response.json());if(!controller.signal.aborted)setDrafts(previous=>previous[slug+":"+date]?previous:{...previous,[slug+":"+date]:entry});}catch{}
     }));
     return()=>controller.abort();
   },[slug,monday]);
@@ -52,9 +54,9 @@ export default function AdminPage(){
     setError("");setNotice("");
     if(cache.current[key]){setLoading(false);return;}
     const controller=new AbortController();setLoading(true);
-    fetch("/api/demo-menu?hotel="+encodeURIComponent(slug)+"&day="+day,{cache:"no-store",signal:controller.signal})
+    fetch(apiQuery("demo-menu", "hotel="+encodeURIComponent(slug)+"&day="+day),{cache:"no-store",signal:controller.signal})
       .then(async response=>{if(!response.ok)throw Error();return response.json() as Promise<{special:DailySpecial;saved:boolean}>;})
-      .then(data=>{if(controller.signal.aborted)return;const dishes=data.special.dishes||[{title:data.special.title,description:data.special.description,price:data.special.price}];setDrafts(prev=>({...prev,[key]:{dishes,baseline:JSON.stringify(dishes),saved:data.saved}}));})
+      .then(data=>{if(controller.signal.aborted)return;const dishes=data.special.dishes?.length?data.special.dishes:[{title:data.special.title,description:data.special.description,price:data.special.price}];setDrafts(prev=>({...prev,[key]:{dishes,baseline:JSON.stringify(dishes),saved:data.saved}}));})
       .catch(()=>{if(!controller.signal.aborted)setError("Das Menü konnte nicht geladen werden. Bitte erneut versuchen.");})
       .finally(()=>{if(!controller.signal.aborted)setLoading(false);});
     return()=>controller.abort();
@@ -70,7 +72,7 @@ export default function AdminPage(){
     if(invalidDish!==-1){setView("edit");requestAnimationFrame(()=>{const details=form.querySelectorAll<HTMLDetailsElement>(".dish-editor-details")[invalidDish];if(details){details.open=true;details.querySelector("summary")?.focus();}});setError("Bitte die Allergenangaben prüfen: Getreide- und Nussarten ergänzen und Ernährungsweise mit den enthaltenen Allergenen abgleichen.");return;}
     const dishes=draft.dishes.map(d=>({...d,title:d.title.trim(),description:d.description.trim(),price:Number(d.price.replace("€","").trim().replace(",",".")).toFixed(2).replace(".",",")+" €"}));
     setBusy(true);setError("");setNotice("");
-    try{const response=await fetch("/api/demo-menu",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({hotel:slug,day,special:{...dishes[0],dishes,validOn:day}})});if(!response.ok)throw Error();setDrafts(prev=>({...prev,[key]:{dishes,baseline:JSON.stringify(dishes),saved:true}}));setNotice("Gespeichert. Das Tagesmenü für "+label(day,{day:"numeric",month:"long"})+" ist auf der lokalen Hotelseite sichtbar.");}
+    try{const response=await apiFetch("demo-menu",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({hotel:slug,day,special:{...dishes[0],dishes,validOn:day}})});if(!response.ok)throw Error();setDrafts(prev=>({...prev,[key]:{dishes,baseline:JSON.stringify(dishes),saved:true}}));setNotice("Gespeichert. Das Tagesmenü für "+label(day,{day:"numeric",month:"long"})+" ist auf der Hotelseite sichtbar.");}
     catch{setError("Speichern fehlgeschlagen. Ihre Änderungen bleiben hier erhalten. Bitte erneut versuchen.");}finally{setBusy(false);}
   }
   async function saveWeek(){
@@ -84,9 +86,9 @@ export default function AdminPage(){
     const failed:string[]=[];let saved=0;
     for(const entry of entries){
       setWeekStatus({hotel:slug,week:monday,error:false,text:`Wochenmenüs werden gespeichert: ${saved+failed.length+1} von ${entries.length} …`});
-      try{const response=await fetch("/api/demo-menu",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({hotel:slug,day:entry.day,special:{...entry.dishes[0],dishes:entry.dishes,validOn:entry.day}})});if(!response.ok)throw Error();setDrafts(previous=>({...previous,[slug+":"+entry.day]:{dishes:entry.dishes,baseline:JSON.stringify(entry.dishes),saved:true}}));saved++;}catch{failed.push(entry.day);}
+      try{const response=await apiFetch("demo-menu",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({hotel:slug,day:entry.day,special:{...entry.dishes[0],dishes:entry.dishes,validOn:entry.day}})});if(!response.ok)throw Error();setDrafts(previous=>({...previous,[slug+":"+entry.day]:{dishes:entry.dishes,baseline:JSON.stringify(entry.dishes),saved:true}}));saved++;}catch{failed.push(entry.day);}
     }
-    setWeekStatus({hotel:slug,week:monday,error:failed.length>0,text:failed.length?`${saved} Menüs gespeichert. Nicht gespeichert: ${failed.map(date=>label(date,{day:"2-digit",month:"2-digit"})).join(", ")}. Diese Entwürfe bleiben erhalten; bitte erneut speichern.`:`${saved} ${saved===1?"Tagesmenü":"Tagesmenüs"} gespeichert. Die Menüs dieser Woche sind auf der lokalen Hotelseite verfügbar.`});
+    setWeekStatus({hotel:slug,week:monday,error:failed.length>0,text:failed.length?`${saved} Menüs gespeichert. Nicht gespeichert: ${failed.map(date=>label(date,{day:"2-digit",month:"2-digit"})).join(", ")}. Diese Entwürfe bleiben erhalten; bitte erneut speichern.`:`${saved} ${saved===1?"Tagesmenü":"Tagesmenüs"} gespeichert. Die Menüs dieser Woche sind auf der Hotelseite verfügbar.`});
     setBusy(false);
   }
   return <main id="main-content" tabIndex={-1} className="mm-shell">
@@ -133,7 +135,7 @@ export default function AdminPage(){
           </form>}
         </div>
         <div hidden={section!=="files"} className="mm-files-panel"><div className="mm-files-intro"><span className="mm-kicker">DATEIEN & VORLAGEN</span><h2>Einfach übernehmen.</h2><p>PDFs gehören zum ausgewählten Haus. Ein JSON-Import gilt für den gewählten Tag.</p></div><MenuPdf key={slug} slug={slug} editable/><MenuJsonImport key={key} hotel={slug} hotelName={hotel.name} day={day} dishes={draft?.dishes} dirty={dirty} disabled={busy||loading||!draft} onImport={dishes=>{edit(dishes);setSection("menu");setView("edit");setNotice("Menü als Entwurf übernommen. Bitte Gerichte prüfen und speichern.");requestAnimationFrame(()=>document.getElementById("editor")?.scrollIntoView({block:"start"}));}}/>{error&&!draft&&<div role="alert" className="mm-message mm-error">{error}<button type="button" onClick={()=>setRetry(v=>v+1)}>Erneut laden</button></div>}</div>
-        <p className="mm-footnote">Entwürfe bleiben beim Wechsel von Hotel oder Tag erhalten, bis Sie die Seite verlassen. {sharedPreview?"In dieser Online-Ansicht werden keine Änderungen gespeichert.":"Gespeicherte Menüs bleiben lokal erhalten."}</p>
+        <p className="mm-footnote">Entwürfe bleiben beim Wechsel von Hotel oder Tag erhalten, bis Sie die Seite verlassen. {sharedPreview?"In dieser Online-Ansicht werden keine Änderungen gespeichert.":"Gespeicherte Menüs sind auf der Hotelseite verfügbar."}</p>
       </div>
     </div>
     {copySource&&<MenuCopyDialog source={copySource} drafts={drafts} onClose={()=>setCopySource(null)} onCopy={(dishes,targets)=>{
@@ -144,3 +146,5 @@ export default function AdminPage(){
     }}/>}
   </main>;
 }
+
+export default function AdminPage(){return <AdminSession><MenuManager/></AdminSession>;}

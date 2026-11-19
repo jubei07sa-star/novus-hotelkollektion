@@ -1,6 +1,10 @@
-# Beş bağımsız otel sitesi — yerel demo
+# Beş bağımsız otel sitesi — ALL-INKL statik + PHP/MySQL
 
-Tüm ziyaretçi arayüzleri Almancadır. Yerel geliştirme ve Caner Bey için paylaşılan Vercel önizlemesi. Kaynak kod Jubei hesabındaki özel GitHub deposunda tutulur; gerçek otel domainleri henüz taşınmaz. `noindex` ve robots engeli aktiftir.
+Tüm ziyaretçi arayüzleri Almancadır. Güncel hedef: tasarımı ortak Next.js kaynaklarından üretip ALL-INKL'e altı ayrı statik site olarak yüklemek; menü, PDF ve kontakt işlemlerini PHP/MySQL ile çalıştırmak. Node.js yalnızca geliştirme ve çıktı üretmek için gerekir. Kurulum, SEO ve bakım yönergesi: [docs/ALL-INKL.md](docs/ALL-INKL.md).
+
+`npm run build:allinkl` yerel test paketi, `npm run build:allinkl:production` onaylı domainlerle canlı paket üretir. İkisi de yayınlama yapmaz. Test paketleri Google'a kapalıdır; canlı pakette halka açık sayfalar indexlenebilir, yönetim sayfası kapalı kalır. Novus Global domaini belirlenene kadar canlı paket üretimi bilerek durdurulur.
+
+Mevcut Vercel önizlemesi bu yerel değişikliklerle güncellenmedi. Aşağıdaki 3000-port adresleri eski Next.js geliştirme önizlemesidir; PHP/MySQL akışlarını test etmek için statik çıktılar PHP sunucusunda açılmalıdır.
 
 | Otel | Yerel önizleme |
 | --- | --- |
@@ -20,11 +24,12 @@ Eski örnek domainler ilgili gerçek otellere yönlendirilir. Beşinci otel Kron
 ## Mevcut davranış
 
 - Beş otelin gerçek fotoğraf ve logoları yerel dosyalardadır.
-- Menü yönetimi: otel ve gün seçimi, ayrıntılı alerjenler, JSON içe aktarma, PDF yükleme. Menü verileri `data/` altında korunur. API yazmaları yalnızca geliştirme ortamında açıktır.
+- Menü yönetimi: otel/gün, alerjenler, JSON içe/dışa aktarma, günler arasında kopyalama ve PDF. ALL-INKL paketinde oturum ve CSRF kontrolüyle MySQL'e/PDF deposuna kaydedilir. Eski Node geliştirme modunda `data/` dosyaları korunur.
 - WhatsApp: +49 176 21040296. Almanca hazırlanmış mesajda otel ve konum bulunur; ziyaretçi kendi WhatsApp uygulamasında gönderir.
-- Ochsen yeni Novus Global GmbH işletmesi için hazırlanmıştır. Eski işletmeci, fiyatlar, saatler ve rezervasyon hesabı kullanılmaz. Planlama formu yalnızca yerel sonuç gösterir.
+- Ochsen yeni Novus Global GmbH işletmesi için hazırlanmıştır. Eski işletmeci, fiyatlar, saatler ve rezervasyon hesabı kullanılmaz. Rezervasyon sayfası kendi rezervasyon formunu oluşturmaz.
 - Tanne ve Adler rezervasyonları resmî dış portallara bağlantı verir. Wagen telefon/e-posta üzerinden yönlendirir.
-- Çerez/yerel depolama: yalnızca kullanıcının gerekli tercih seçimi; `hotel-privacy-v1`, sürüm 1, 180 gün. Her origin ayrıdır. İzleme ve gömülü üçüncü taraf yoktur; tercih gelecekteki hizmetlere izin vermez.
+- Kontakt formu: PHP doğrulaması, spam sınırı ve MySQL kayıt; ALL-INKL yerel posta hizmetine aktarım. Gerçek posta adresleri ve teslim kontrolü canlı kurulumda tamamlanmalıdır.
+- Çerez/yerel depolama: `hotel-privacy-v1`, 180 gün; PHP form ve panel için gerekli HttpOnly/SameSite oturumu. Her origin ayrıdır. Analiz veya reklam servisine veri gönderilmez.
 - Impressum, Datenschutz, Barrierefreiheit, Buchung & rechtliche Hinweise ve her zaman erişilebilir Cookie-Einstellungen bağlantıları vardır.
 
 - Krone: wellness ve seminer sayfaları, 16 fotoğraf ve özgün logo; eski işletmeci iletişimi ve rezervasyon koşulları taşınmaz. Ayrıntılar: `docs/KRONE-CONTENT.md`.

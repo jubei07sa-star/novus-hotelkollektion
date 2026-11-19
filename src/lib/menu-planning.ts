@@ -7,7 +7,7 @@ export function isMenuDirty(draft?: MenuDraft) {
   return !!draft && (!!draft.planned || JSON.stringify(draft.dishes) !== draft.baseline);
 }
 export function draftFromMenu(data: { special: DailySpecial; saved: boolean }): MenuDraft {
-  const dishes = data.special.dishes || [{ title: data.special.title, description: data.special.description, price: data.special.price }];
+  const dishes = data.special.dishes?.length ? data.special.dishes : [{ title: data.special.title, description: data.special.description, price: data.special.price }];
   return { dishes, baseline: JSON.stringify(dishes), saved: data.saved };
 }
 export function preparedDishes(hotel: string, day: string, dishes: DailyDish[]) {

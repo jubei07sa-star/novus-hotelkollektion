@@ -1,4 +1,4 @@
-export const hotelEventNames = ["whatsapp_click", "reservation_click", "restaurant_reservation_click", "contact_click", "reservation_page_view", "contact_page_view", "contact_form_preview"] as const;
+export const hotelEventNames = ["whatsapp_click", "reservation_click", "restaurant_reservation_click", "contact_click", "reservation_page_view", "contact_page_view", "contact_form_preview", "contact_form_submit"] as const;
 export type HotelEventName = typeof hotelEventNames[number];
 export type HotelEvent = {
   event: HotelEventName;

@@ -1,4 +1,5 @@
 "use client";
+import { apiFetch, apiQuery, phpBackend } from "@/lib/api";
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, ChevronLeft, ChevronRight, Copy, LoaderCircle, X } from "lucide-react";
 import type { DailyDish } from "@/lib/daily-menu";
@@ -30,7 +31,7 @@ export function MenuCopyDialog({ source, drafts, onClose, onCopy }: { source: Co
     try {
       preparedDishes(source.hotel, source.day, source.dishes);
       const checked = await Promise.all([...selected].sort().map(async day => {
-        const response = await fetch(`/api/demo-menu?hotel=${encodeURIComponent(source.hotel)}&day=${day}`, { cache: "no-store", signal: controller.signal });
+        const response = await fetch(apiQuery("demo-menu", `hotel=${encodeURIComponent(source.hotel)}&day=${day}`), { cache: "no-store", signal: controller.signal });
         if (!response.ok) throw Error("Die Zielmenüs konnten nicht geprüft werden. Bitte erneut versuchen. Es wurde nichts kopiert.");
         const existing = draftFromMenu(await response.json());
         const local = drafts[source.hotel + ":" + day];

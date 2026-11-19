@@ -1,0 +1,13 @@
+"use client";
+import { useEffect, useState } from "react";
+import { apiFetch, apiUrl, phpBackend } from "@/lib/api";
+import "./admin-session.css";
+export function AdminSession({children}:{children:React.ReactNode}) {
+  const [state,setState]=useState<"loading"|"login"|"ready">(phpBackend?"loading":"ready");
+  const [error,setError]=useState("");const [busy,setBusy]=useState(false);
+  useEffect(()=>{if(!phpBackend)return;const controller=new AbortController();fetch(apiUrl("session"),{cache:"no-store",signal:controller.signal}).then(async r=>{if(!r.ok)throw Error();const d=await r.json();setState(d.authenticated?"ready":"login");}).catch(()=>{if(!controller.signal.aborted){setState("login");setError("Die Verwaltung ist noch nicht erreichbar. Bitte die Serverkonfiguration prüfen.");}});return()=>controller.abort();},[]);
+  async function login(event:React.FormEvent<HTMLFormElement>){event.preventDefault();if(busy)return;const form=new FormData(event.currentTarget);setBusy(true);setError("");try{const r=await apiFetch("login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:form.get("email"),password:form.get("password")})});const d=await r.json();if(!r.ok)throw Error(d.error);setState("ready");}catch(e){setError(e instanceof Error?e.message:"Anmeldung fehlgeschlagen.");}finally{setBusy(false);}}
+  async function logout(){if(!confirm("Abmelden? Nicht gespeicherte Entwürfe gehen verloren."))return;setBusy(true);try{const r=await apiFetch("logout",{method:"POST"});if(!r.ok)throw Error();setState("login");}catch{setError("Abmeldung fehlgeschlagen. Bitte erneut versuchen.");}finally{setBusy(false);}}
+  if(state==="ready")return <>{phpBackend&&<div className="admin-session-bar"><span>Novus Global · Menüverwaltung</span><button type="button" disabled={busy} onClick={logout}>Abmelden</button>{error&&<span role="alert">{error}</span>}</div>}{children}</>;
+  return <main className="admin-login"><section><span className="eyebrow eyebrow--dark">NOVUS GLOBAL</span><h1>Willkommen zurück.</h1><p>Speisekarten und Tagesmenüs für Ihre Häuser verwalten.</p>{state==="loading"?<p role="status">Sitzung wird geprüft …</p>:<form onSubmit={login}><label>E-Mail-Adresse<input name="email" type="email" autoComplete="username" required maxLength={180}/></label><label>Passwort<input name="password" type="password" autoComplete="current-password" required maxLength={128}/></label>{error&&<p role="alert">{error}</p>}<button className="button button-solid" disabled={busy}>{busy?"Anmeldung läuft …":"Sicher anmelden"}</button></form>}<a href="/">Zur Hotelkollektion</a></section></main>;
+}

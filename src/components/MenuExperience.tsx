@@ -1,4 +1,5 @@
 "use client";
+import { apiFetch, apiQuery, phpBackend } from "@/lib/api";
 
 import { useEffect, useMemo, useState } from "react";
 import { CalendarDays, Info } from "lucide-react";
@@ -20,15 +21,18 @@ function dayLabel(iso: string) {
 export function MenuExperience({ hotel, dailyOnly=false }: { hotel: Hotel; dailyOnly?:boolean }) {
   const isTanne = hotel.slug === "landhotel-tanne";
   const sections = isTanne ? tanneMenu : hotel.menu;
-  const days = useMemo(() => Array.from({length:7}, (_,i) => {
-    const date = new Date(`${formatDay(new Date())}T12:00:00Z`);
+  const [baseDay,setBaseDay] = useState("");
+  useEffect(()=>{const day=formatDay(new Date());setBaseDay(day);setSelected(day);},[]);
+  const days = useMemo(() => baseDay ? Array.from({length:7}, (_,i) => {
+    const date = new Date(`${baseDay}T12:00:00Z`);
     date.setUTCDate(date.getUTCDate()+i);
     return {iso:formatDay(date),day:new Intl.DateTimeFormat("de-DE",{timeZone:"Europe/Berlin",weekday:"short"}).format(date),date:new Intl.DateTimeFormat("de-DE",{timeZone:"Europe/Berlin",day:"2-digit",month:"2-digit"}).format(date)};
-  }), []);
-  const [selected, setSelected] = useState(() => formatDay(new Date()));
-  const [special, setSpecial] = useState<DailySpecial>(() => getDefaultSpecial(formatDay(new Date())));
+  }) : [], [baseDay]);
+  const [selected, setSelected] = useState("");
+  const [special, setSpecial] = useState<DailySpecial>({title:"",description:"",price:"",validOn:"",dishes:[]});
   const [loading, setLoading] = useState(true);
   useEffect(() => {
+    if(!selected)return;
     let mounted = true;
     let sequence = 0;
     const controller = new AbortController();
@@ -36,11 +40,11 @@ export function MenuExperience({ hotel, dailyOnly=false }: { hotel: Hotel; daily
     async function load() {
       const request = ++sequence;
       try {
-        const result = await fetch(`/api/demo-menu?hotel=${encodeURIComponent(hotel.slug)}&day=${encodeURIComponent(selected)}`,{cache:"no-store",signal:controller.signal});
+        const result = await fetch(apiQuery("demo-menu", `hotel=${encodeURIComponent(hotel.slug)}&day=${encodeURIComponent(selected)}`),{cache:"no-store",signal:controller.signal});
         if (!result.ok) throw new Error("Demo-Menü nicht erreichbar");
         const data = await result.json() as {special:DailySpecial};
         if (mounted && request === sequence) setSpecial(data.special);
-      } catch { if (mounted && request === sequence) setSpecial(getDefaultSpecial(selected)); }
+      } catch { if (mounted && request === sequence) setSpecial(phpBackend ? {title:"",description:"",price:"",validOn:selected,dishes:[]} : getDefaultSpecial(selected)); }
       finally { if (mounted && request === sequence) setLoading(false); }
     }
     void load();
@@ -56,9 +60,9 @@ export function MenuExperience({ hotel, dailyOnly=false }: { hotel: Hotel; daily
     </nav>}
     <section className="daily-special" id="tagesmenue" aria-labelledby="daily-menu-heading">
       <div className="daily-plan"><div className="daily-heading"><div><span className="eyebrow eyebrow--dark">TÄGLICH ANDERS</span><h2 id="daily-menu-heading">Unser Tagesmenü</h2><p>Kulinarische Ideen für Ihren Besuch. Das Angebot für Ihren Wunschtag stimmen Sie bitte mit uns ab.</p></div><CalendarDays size={26}/></div>
-        <div className="daily-date-panel">{(isTanne||dailyOnly) && <p className="daily-selected-date">{dayLabel(selected)}</p>}<div className="day-picker" role="group" aria-label="Datum für Tagesgericht wählen">{days.map(day=><button type="button" className={`day-pill ${selected===day.iso?"day-pill--active":""}`} onClick={()=>{if(selected!==day.iso){setLoading(true);setSelected(day.iso);}}} key={day.iso} aria-label={dayLabel(day.iso)} aria-pressed={selected===day.iso}><span>{day.day}</span><strong>{day.date}</strong></button>)}</div></div>
+        <div className="daily-date-panel">{(isTanne||dailyOnly) && <p className="daily-selected-date">{selected?dayLabel(selected):"Aktuelle Woche"}</p>}<div className="day-picker" role="group" aria-label="Datum für Tagesgericht wählen">{days.map(day=><button type="button" className={`day-pill ${selected===day.iso?"day-pill--active":""}`} onClick={()=>{if(selected!==day.iso){setLoading(true);setSelected(day.iso);}}} key={day.iso} aria-label={dayLabel(day.iso)} aria-pressed={selected===day.iso}><span>{day.day}</span><strong>{day.date}</strong></button>)}</div></div>
       </div>
-      <div className={`daily-dishes${dishes.length===1?" daily-dishes--single":""}`} aria-busy={loading}>{loading?<p className="menu-loading" role="status">Tagesmenü wird geladen …</p>:dishes.map((dish,index)=><LuxuryDish key={`${selected}-${index}`} dish={dish}/>)}</div>
+      <div className={`daily-dishes${dishes.length===1?" daily-dishes--single":""}`} aria-busy={loading}>{loading?<p className="menu-loading" role="status">Tagesmenü wird geladen …</p>:dishes.length===0?<p className="menu-loading">Für diesen Tag ist noch kein Tagesmenü hinterlegt. Bitte fragen Sie unser Restaurantteam.</p>:dishes.map((dish,index)=><LuxuryDish key={`${selected}-${index}`} dish={dish}/>)}</div>
       <p className="small-notice"><Info size={15}/> Menüideen zur Orientierung. Bitte bestätigen Sie Angebot, Preis und Allergene vor Ihrer Bestellung mit unserem Restaurantteam.</p>
     </section>
     {!dailyOnly&&<div className="full-menu"><div className="full-menu-heading"><div><span className="eyebrow eyebrow--dark">AUS UNSERER KÜCHE</span><h2>{isTanne?"À la carte":"Speisekarte"}</h2><p>{isTanne?"Aus unserer Weihnachtskarte · 24.–26. Dezember 2026":"Mit Liebe zum Detail und Freude am gemeinsamen Genuss."}</p></div><MenuPdf key={hotel.slug} slug={hotel.slug}/></div>

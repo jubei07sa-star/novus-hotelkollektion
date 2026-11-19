@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(base),
   title: { default: "Hotelkollektion | Willkommen", template: "%s | Hotelverbund" },
   description: "Fünf Häuser im Markgräflerland und Dreiländereck bis zum Südschwarzwald: Zimmer, Restaurant und besondere Anlässe.",
-  robots: { index: false, follow: false, googleBot: { index: false, follow: false } },
+  robots: { index: process.env.NEXT_PUBLIC_INDEXABLE === "true", follow: true },
   applicationName: "Hotelkollektion",
   openGraph: { locale: "de_DE", type: "website", siteName: "Hotelkollektion" }
 };

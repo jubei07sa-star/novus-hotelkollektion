@@ -1,15 +1,16 @@
 "use client";
+import { apiFetch, apiQuery, phpBackend } from "@/lib/api";
 import { useEffect, useRef, useState } from "react";
 import { FileText, Upload, Download } from "lucide-react";
 export function MenuPdf({slug,editable=false}:{slug:string;editable?:boolean}) {
   const [available,setAvailable]=useState(false),[file,setFile]=useState<File|null>(null),[busy,setBusy]=useState(false),[message,setMessage]=useState(""),[error,setError]=useState("");
   const input=useRef<HTMLInputElement>(null);
-  const url="/api/menu-pdf?hotel="+encodeURIComponent(slug);
+  const url=apiQuery("menu-pdf", "hotel="+encodeURIComponent(slug));
   useEffect(()=>{const controller=new AbortController();setAvailable(false);const load=()=>fetch(url,{signal:controller.signal,cache:"no-store"}).then(r=>{if(!r.ok)throw Error();return r.json();}).then(d=>{if(!controller.signal.aborted)setAvailable(d.available);}).catch(()=>{});void load();window.addEventListener("focus",load);return()=>{controller.abort();window.removeEventListener("focus",load);};},[url]);
   const sharedPreview=process.env.NEXT_PUBLIC_SHARED_PREVIEW==="true";
   async function upload(){
     if(!file||sharedPreview)return;setBusy(true);setError("");setMessage("");
-    try{const form=new FormData();form.append("file",file);const response=await fetch(url,{method:"POST",body:form});const result=await response.json();if(!response.ok)throw Error(result.error);setAvailable(true);setFile(null);if(input.current)input.current.value="";setMessage("PDF gespeichert. Sie ist auf der Speisekartenseite dieses Hotels verfügbar.");}
+    try{const form=new FormData();form.append("file",file);const response=await apiFetch(url,{method:"POST",body:form});const result=await response.json();if(!response.ok)throw Error(result.error);setAvailable(true);setFile(null);if(input.current)input.current.value="";setMessage("PDF gespeichert. Sie ist auf der Speisekartenseite dieses Hotels verfügbar.");}
     catch(e){setError(e instanceof Error?e.message:"Upload fehlgeschlagen.");}finally{setBusy(false);}
   }
   if(!editable)return available?<a className="menu-pdf-download" href={url+"&file=1"}><Download size={19}/> Speisekarte als PDF herunterladen</a>:null;

@@ -17,7 +17,7 @@ test("Otel site içi URL /zimmer yapısında",hotels.includes('section ? `/${sec
 test("Cross hotel link explicit origin",hotels.includes("hotelHomeUrl"));
 test("Sitemap hosta özel",sitemap.includes("getHotelByHostname")&&sitemap.includes("hotelHomeUrl")&&!sitemap.includes("hotels.flatMap"));
 test("Otel canonical ayrı origin",layout.includes("hotelHomeUrl")&&layout.includes("metadataBase:new URL(domain)"));
-test("Demo noindex",rootLayout.includes("index: false"));
+test("Indexierung nur nach expliziter Freigabe",rootLayout.includes('process.env.NEXT_PUBLIC_INDEXABLE === "true"'));
 test("Demo robots global disallow",read("src/app/robots.ts").includes('disallow:"/"'));
 test("GastroGuide otel odası için kullanılmıyor",hotels.includes("reservierung.gastroguide.de")&&!read("src/components/BookingExperience.tsx").includes("gastroguide"));
 test("Menu API development only",read("src/app/api/demo-menu/route.ts").includes('NODE_ENV!=="production"'));

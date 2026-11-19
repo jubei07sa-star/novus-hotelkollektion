@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint:types": "tsc --noEmit"
+    "lint:types": "tsc --noEmit",
+    "build:allinkl": "node scripts/build-allinkl.mjs",
+    "build:allinkl:production": "node scripts/build-allinkl.mjs --production",
+    "check:allinkl": "node scripts/check-allinkl.mjs"
   },
   "dependencies": {
     "next": "^16.0.0",

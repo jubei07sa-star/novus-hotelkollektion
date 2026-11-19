@@ -13,3 +13,7 @@ out
 /data/*.json
 /data/menu-pdfs/
 /work/
+
+/dist-allinkl/
+/server/private/config.php
+/server/private/storage/
